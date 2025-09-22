@@ -2,3 +2,10 @@ img
 {
     max-width: 500px;
 }
+.center 
+{
+    margin:auto;
+    width: auto;
+    border: 3px;
+    padding: 10px;
+}
