@@ -2,7 +2,6 @@ body
 {
     background-color: dimgray;
     font-family: Helvetica, Arial;
-
 }
 img
 {
@@ -30,6 +29,10 @@ h1
 {
     color: white;
     text-align: center;
+}
+p
+{
+    color: white;
 }
 div
 {
