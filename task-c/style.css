@@ -1,3 +1,7 @@
+/*
+Author: Lucas Rantanen
+Date: 2025-09-23
+*/
 body
 {
     background-color: dimgray;
@@ -33,6 +37,7 @@ h1
 p
 {
     color: white;
+    font-weight: bold;
 }
 div
 {
