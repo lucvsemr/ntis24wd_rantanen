@@ -22,10 +22,12 @@ ul
 {
     color: darkslateblue;
     font: bold;
+    list-style-type: circle;
 }
 ol
 {
     color:crimson;
+    list-style-type: disc;
 }
 a
 {
