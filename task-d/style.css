@@ -1,0 +1,67 @@
+/*
+Author: Lucas Rantanen
+Date: 2025-10-09
+*/
+body {
+  background-image: linear-gradient(to bottom, #bb00ff, #e1aaf3);
+  font-family: Helvetica, Arial;
+  height: auto;
+  background-size: cover;
+  background-attachment: fixed;
+  padding: 5px;
+}
+p {
+  text-align: center;
+}
+h1 {
+  font-size: xx-large;
+  text-align: center;
+}
+.box {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.highlight {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 5px;
+}
+#special-message {
+  color: #e1aaf3;
+}
+#special-message:hover {
+  color: #ffffff;
+  text-align: center;
+}
+h1,
+h2,
+h3 {
+  font-weight: 500;
+  font-style: oblique;
+  text-align: center;
+}
+section ul li {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+a[target="_blank"] {
+  color: #ffffff;
+  display: block;
+  text-align: center;
+}
+a:hover {
+  color: black;
+}
+img {
+  width: 300px;
+  padding: 20px;
+  border-radius: 50px;
+}
+img[alt] {
+  color: gray;
+}
