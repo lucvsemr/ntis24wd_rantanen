@@ -37,6 +37,9 @@ h1 {
   color: #ffffff;
   text-align: center;
 }
+#text-styling {
+  font-style: normal;
+}
 h1,
 h2,
 h3 {
