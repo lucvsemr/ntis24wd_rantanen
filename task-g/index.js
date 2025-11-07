@@ -6,13 +6,13 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("addForm");
+  const form = document.getElementById("fullForm");
   const tbody = document.querySelector("#timetable tbody");
 
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("email");
   const telInput = document.getElementById("tel");
-  const birthInput = document.getElementById("birthDate");
+  const birthInput = document.getElementById("birth");
   const rightsInput = document.getElementById("rights");
 
   const nameError = document.getElementById("nameError");
@@ -42,35 +42,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const telLooksOk = (str) => {
     const digits = (str || "").replace(/\D/g, "");
-    return /^(\+|0)[1-9][0-9 \-\(\)\.]{7,14}$/.test(str);
+    return (
+      /^\+?[\d\s\-()]{7,25}$/.test(str) &&
+      digits.length >= 7 &&
+      digits.length <= 12
+    );
   };
 
   const validate = () => {
     let ok = true;
 
-    if (
-      !nameInput.value.trim() ||
-      nameInput.value.trim().length < 2 ||
-      nameInput.value.trim().length > 14
-    ) {
-      setError(nameError, "Name needs to be between 2 and 14 characters.");
+    if (!nameInput.value.trim() || nameInput.value.trim().length < 3 || nameInput.value.trim().length > 15) {
+      setError(nameError, "Name needs to be between 3-15 letters.");
       ok = false;
     } else {
       setError(nameError, "");
     }
 
     if (!emailInput.value.trim() || !emailInput.checkValidity()) {
-      setError(emailError, "Enter Email");
+      setError(emailError, "Enter an Email");
       ok = false;
     } else {
       setError(emailError, "");
     }
 
     if (!telLooksOk(telInput.value.trim())) {
-      setError(
-        telError,
-        "Only actual phone numbers are allowed (e.g. +358 45 123 2345"
-      );
+      setError(telError, "Only real phone numbers, 7-14 numbers.");
       ok = false;
     } else {
       setError(telError, "");
@@ -81,10 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
       setError(birthError, "Pick a birth date.");
       ok = false;
     } else if (isFutureDate(b)) {
-      setError(birthError, "One cannot be born in the future");
+      setError(birthError, "Your birth cannot be dated in the future.");
       ok = false;
     } else if (calcAge(b) < 18) {
-      setError(birthError, "Underage, leave the site.");
+      setError(birthError, "Age restricted +18");
       ok = false;
     } else {
       setError(birthError, "");
@@ -99,29 +96,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return ok;
   };
+
   nameInput.addEventListener("input", () => {
     const val = nameInput.value.trim();
-    if (val.length < 2) {
-      setError(nameError, "Name needs to be at least 2 letters long.");
+    if (val.length < 3 || val.length > 15) {
+      setError(nameError, "Name needs to be between 3-15 letters.");
     } else {
       setError(nameError, "");
     }
   });
 
-  emailInput.addEventListener("input", validate);
-  telInput.addEventListener("input", validate);
-  birthInput.addEventListener("change", validate);
-  rightsInput.addEventListener("change", validate);
-  const addRow = ({ name, email, tel, birthDate, terms }) => {
+  emailInput.addEventListener("input", () => {
+    if (!emailInput.value.trim() || !emailInput.checkValidity()) {
+      setError(emailError, "Enter an Email");
+    } else {
+      setError(emailError, "");
+    }
+  });
+  telInput.addEventListener("input", () => {
+    if (!telLooksOk(telInput.value.trim())) {
+      setError(telError, "Only real phone numbers, 7-14 numbers.");
+    } else {
+      setError(telError, "");
+    }
+  });
+  birthInput.addEventListener("change", () => {
+    const b = birthInput.value;
+    if (!b) {
+      setError(birthError, "Pick a birth date.");
+    } else if (isFutureDate(b)) {
+      setError(birthError, "Your birth cannot be dated in the future.");
+    } else if (calcAge(b) < 18) {
+      setError(birthError, "Age restricted +18");
+    } else {
+      setError(birthError, "");
+    }
+  });
+  rightsInput.addEventListener("change", () => {
+    if (!rightsInput.checked) {
+      setError(rightsError, "Forfeiting rights is required.");
+    } else {
+      setError(rightsError, "");
+    }
+  });
+
+  const addRow = ({ name, email, tel, birth, rights }) => {
     const tr = document.createElement("tr");
 
     const cells = [
-      new Date().toISOString(), 
+      new Date().toString(),
       name,
       email,
       tel,
-      birthDate, 
-      rights ? "Yes" : "No",
+      birth,
+      rights ? "✓" : "X",
     ];
 
     cells.forEach((text) => {
@@ -132,14 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tbody.appendChild(tr);
   };
-  nameInput.addEventListener("input", () => {
-    const val = nameInput.value.trim();
-    if (val.length < 2 || val.length > 15) {
-      setError(nameError, "Invalid name (only letters and 3-15 characters)");
-    } else {
-      setError(nameError, "");
-    }
-  });
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -152,16 +173,19 @@ document.addEventListener("DOMContentLoaded", () => {
       else if (rightsError.textContent) rightsInput.focus();
       return;
     }
+
     addRow({
       name: nameInput.value.trim(),
       email: emailInput.value.trim(),
       tel: telInput.value.trim(),
-      birthDate: birthInput.value,
+      birth: birthInput.value,
       rights: rightsInput.checked,
     });
+
     form.reset();
     nameInput.focus();
   });
+
   form.addEventListener("reset", () => {
     [nameError, emailError, telError, birthError, rightsError].forEach((el) =>
       setError(el, "")
