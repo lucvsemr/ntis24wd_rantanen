@@ -42,32 +42,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const telLooksOk = (str) => {
     const digits = (str || "").replace(/\D/g, "");
-    return (/^(\+|0)[1-9][0-9 \-\(\)\.]{7,14}$/.test(str) &&
-      digits.length >= 7 &&
-      digits.length <= 14
-    );
+    return /^(\+|0)[1-9][0-9 \-\(\)\.]{7,14}$/.test(str);
   };
 
   const validate = () => {
     let ok = true;
-    if (!nameInput.value.trim() || nameInput.value.trim().length < 2 || nameInput.value.trim().length > 14) {
+
+    if (
+      !nameInput.value.trim() ||
+      nameInput.value.trim().length < 2 ||
+      nameInput.value.trim().length > 14
+    ) {
       setError(nameError, "Name needs to be between 2 and 14 characters.");
       ok = false;
     } else {
       setError(nameError, "");
     }
+
     if (!emailInput.value.trim() || !emailInput.checkValidity()) {
       setError(emailError, "Enter Email");
       ok = false;
     } else {
       setError(emailError, "");
     }
+
     if (!telLooksOk(telInput.value.trim())) {
-      setError(telError, "Only actual phone numbers are allowed (e.g. +358 45 123 2345");
+      setError(
+        telError,
+        "Only actual phone numbers are allowed (e.g. +358 45 123 2345"
+      );
       ok = false;
     } else {
       setError(telError, "");
     }
+
     const b = birthInput.value;
     if (!b) {
       setError(birthError, "Pick a birth date.");
@@ -81,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       setError(birthError, "");
     }
+
     if (!rightsInput.checked) {
       setError(rightsError, "Forfeiting rights is required.");
       ok = false;
@@ -103,24 +112,25 @@ document.addEventListener("DOMContentLoaded", () => {
   telInput.addEventListener("input", validate);
   birthInput.addEventListener("change", validate);
   rightsInput.addEventListener("change", validate);
-  const newRow = ({ name, email, tel, birth, rights }) => {
+  const addRow = ({ name, email, tel, birthDate, terms }) => {
     const tr = document.createElement("tr");
 
     const cells = [
-      new Date().toISOString(),
+      new Date().toISOString(), 
       name,
       email,
       tel,
-      birth,
-      rights ? "✔" : "X",
+      birthDate, 
+      rights ? "Yes" : "No",
     ];
+
     cells.forEach((text) => {
       const td = document.createElement("td");
       td.textContent = text;
       tr.appendChild(td);
     });
 
-    table.appendChild(row);
+    tbody.appendChild(tr);
   };
   nameInput.addEventListener("input", () => {
     const val = nameInput.value.trim();
@@ -146,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: nameInput.value.trim(),
       email: emailInput.value.trim(),
       tel: telInput.value.trim(),
-      birth: birthInput.value,
+      birthDate: birthInput.value,
       rights: rightsInput.checked,
     });
     form.reset();
