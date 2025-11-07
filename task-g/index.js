@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tr = document.createElement("tr");
 
     const cells = [
-      new Date.now().toISOString(),
+      new Date().toISOString(),
       name,
       email,
       tel,

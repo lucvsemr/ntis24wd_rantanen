@@ -1,3 +1,5 @@
+    <!--Author: Lucas Rantanen
+    Date: 2025-11-07-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,11 +10,6 @@
   </head>
 
   <body>
-    <!--
-    Author: Lucas Rantanen
-    Date: 2025-11-07
-  -->
-
     <header class="site-header">
       <h1>Registeration page</h1>
     </header>
@@ -43,6 +40,7 @@
               />
             </div>
             <p class="error" id="nameError"></p>
+
             <div class="form-row">
               <label for="email">Email</label>
               <input
@@ -54,6 +52,7 @@
               />
             </div>
             <p class="error" id="emailError"></p>
+
             <div class="form-row">
               <label for="tel">Phone number</label>
               <input
@@ -65,6 +64,7 @@
               />
             </div>
             <p class="error" id="telError"></p>
+
             <div class="form-row">
               <label for="birthDate">Birthdate</label>
               <input
@@ -72,29 +72,23 @@
                 name="birthDate"
                 type="date"
                 required
-                placeholder="ex. 040 123 4567"
               />
             </div>
             <p class="error" id="birthError"></p>
-            <div class="form-row">              
-                <input
-                id="rights"
-                name="agreement"
-                type="checkbox"
-                required
-              />
-              <label for="rights">I forfeit all rights</label>
+
+            <div class="form-row">
+              <label
+                ><input 
+                id="rights" 
+                name="terms" 
+                type="checkbox" 
+                /> I forfeit all rights</label>
             </div>
             <p class="error" id="rightsError"></p>
 
-
-
-
             <div class="form-row">
               <button id="addRowBtn" type="submit" class="btn">Submit</button>
-              <button id="clearBtn" type="reset" class="btn btn-secondary">
-                Clear
-              </button>
+              <button id="clearBtn" type="reset" class="btn btn-secondary">Clear</button>
             </div>
           </form>
         </section>
