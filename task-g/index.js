@@ -3,9 +3,11 @@
 // Date: 2025-11-07
 // javascript for form
 
+"use strict";
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("addForm");
-  const table = document.getElementById("infotable").querySelector("tbody");
+  const tbody = document.querySelector("#timetable tbody");
 
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("email");
@@ -48,20 +50,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const validate = () => {
     let ok = true;
-    if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
-      setError(nameError, "Name needs to be atleast 2 letters long.");
+    if (!nameInput.value.trim() || nameInput.value.trim().length < 2 || nameInput.value.trim().length > 14) {
+      setError(nameError, "Name needs to be between 2 and 14 characters.");
       ok = false;
     } else {
       setError(nameError, "");
     }
     if (!emailInput.value.trim() || !emailInput.checkValidity()) {
-      setError(emailError, "Enter an Email-address");
+      setError(emailError, "Enter Email");
       ok = false;
     } else {
       setError(emailError, "");
     }
     if (!telLooksOk(telInput.value.trim())) {
-      setError(telError, "Give a real tel. number (esim. +358 401234567).");
+      setError(telError, "Only actual phone numbers are allowed (e.g. +358 45 123 2345");
       ok = false;
     } else {
       setError(telError, "");
@@ -71,16 +73,16 @@ document.addEventListener("DOMContentLoaded", () => {
       setError(birthError, "Pick a birth date.");
       ok = false;
     } else if (isFutureDate(b)) {
-      setError(birthError, "Birth date cant be in future.");
+      setError(birthError, "One cannot be born in the future");
       ok = false;
-    } else if (calcAge(b) < 15) {
-      setError(birthError, "Age restricted +15");
+    } else if (calcAge(b) < 18) {
+      setError(birthError, "Underage, leave the site.");
       ok = false;
     } else {
       setError(birthError, "");
     }
     if (!rightsInput.checked) {
-      setError(rightsError, "Accept the terms and conditions.");
+      setError(rightsError, "Forfeiting rights is required.");
       ok = false;
     } else {
       setError(rightsError, "");
