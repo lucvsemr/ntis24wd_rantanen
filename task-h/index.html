@@ -1,0 +1,119 @@
+    <!--Author: Lucas Rantanen
+    Date: 2025-11-14-->
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Information form tailwind</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="m-0 min-h-screen bg-slate-50 font-sans text-base h-full">
+    <header class="pt-[2rem] pb-[1rem] text-white font-bold bg-fuchsia-950 text-center">
+      <h1 class="text-2xl">Information input page</h1>
+    </header>
+
+    <main class="ml-[15%] mr-[15%] pt-[1rem] pt-[2rem] ">
+      <!-- Top row split into two blocks -->
+      <div class="md:flex gap-[1rem] mb-[1rem]">
+        <!-- Student info (30%) -->
+        <section class="bg-white border rounded-lg pl-[0.75rem] pr-[0.75rem] pb-[1rem] pt-[1rem] md:flex-[30%] shadow-md" aria-label="Student information">
+          <h2 class="m-[0.5rem] text-lg font-bold">Information</h2>
+          <p><span class="m-[0.5rem] text-md">Lucas Rantanen</span></p>
+          <p><span class="m-[0.5rem] text-md">NTIS24k</span></p>
+        </section>
+
+        <!-- Controls (70%): add course + day marks -->
+        <section class="bg-white border rounded-lg pl-[0.75rem] pr-[0.75rem] pb-[1rem] pt-[1rem] md:flex-[70%] shadow-md" aria-label="Add course row">
+          <h2 class="mb-[0.5rem] text-lg font-bold">Info form</h2>
+
+          <form id="fullForm">
+            <div class="md:flex gap-2 items-center mt-[0.5rem] mb-[0.5rem] ml mr">
+              <label for="name">Name</label>
+              <input class="md:flex-auto pt-[0.45rem] pb-[0.45rem] pl-[0.6rem] pr-[0.6rem] border rounded-lg"
+                id="name"
+                name="name"
+                type="text"
+                required
+                placeholder="ex. Lucas Rantanen"
+              >
+            </div>
+            <p class="m-0 text-red-500" id="nameError"></p>
+
+            <div class="md:flex gap-2 items-center mt-[0.5rem] mb-[0.5rem] ml mr">
+              <label for="email">Email</label>
+              <input class="md:flex-auto pt-[0.45rem] pb-[0.45rem] pl-[0.6rem] pr-[0.6rem] border rounded-lg"
+                id="email"
+                name="email"
+                type="email"
+                required
+                placeholder="ex. lrantanen188@gmail.com"
+              >
+            </div>
+            <p class="m-0 text-red-500" id="emailError"></p>
+
+            <div class="md:flex gap-2 items-center mt-[0.5rem] mb-[0.5rem] ml mr">
+              <label for="tel">Phone number</label>
+              <input class="md:flex-auto pt-[0.45rem] pb-[0.45rem] pl-[0.6rem] pr-[0.6rem] border rounded-lg"
+                id="tel"
+                name="tel"
+                type="tel"
+                required
+                placeholder="ex. 040 123 4567"
+              >
+            </div>
+            <p class="m-0 text-red-500" id="telError"></p>
+
+            <div class="md:flex gap-2 items-center mt-[0.5rem] mb-[0.5rem] ml mr">
+              <label for="birth">Birthdate</label>
+              <input class="md:flex-auto pt-[0.45rem] pb-[0.45rem] pl-[0.6rem] pr-[0.6rem] border rounded-lg"
+                id="birth"
+                name="birth"
+                type="date"
+                required
+              >
+            </div>
+            <p class="m-0 text-red-500" id="birthError"></p>
+
+            <div class="md:flex gap-2 items-center mt-[0.5rem] mb-[0.5rem] ml mr">
+              <label
+                ><input class="md:flex-auto pt-[0.45rem] pb-[0.45rem] pl-[0.6rem] pr-[0.6rem] border rounded-lg"
+                id="rights" 
+                name="terms" 
+                type="checkbox" 
+                > I forfeit all rights</label>
+            </div>
+            <p class="m-0 text-red-500" id="rightsError"></p>
+
+            <div class="md:flex gap-2 items-center mt-[0.5rem] mb-[0.5rem] ml mr">
+              <button id="addRowBtn" type="submit" class="pt-[0.45rem] pb-[0.45rem] pl-[0.8rem] pr-[0.8rem] border rounded-lg bg-slate-50 cursor-pointer hover:bg-slate-200">Submit</button>
+              <button id="clearBtn" type="reset" class="pt-[0.45rem] pb-[0.45rem] pl-[0.8rem] pr-[0.8rem] border rounded-lg bg-slate-50 cursor-pointer hover:bg-slate-200 btn-secondary">Clear</button> 
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-white border rounded-lg p-[1rem] overflow-x-auto shadow-md">
+        <table class="w-full border-collapse table-fixed text-base text-sm md:text-base" id="timetable">
+          <thead class="bg-fuchsia-950 text-white text-left border-b border-solid border-slate-100 rounded-lg">
+            <tr class="bg-slate-50">
+              <th class="w-[20%] bg-fuchsia-950 text-white text-left p-3 border-b border-solid border-slate-100">Time</th>
+              <th class="w-[16%] bg-fuchsia-950 text-white text-left p-3 border-b border-solid border-slate-100">Name</th>
+              <th class="w-[16%] bg-fuchsia-950 text-white text-left p-3 border-b border-solid border-slate-100">Email</th>
+              <th class="w-[16%] bg-fuchsia-950 text-white text-left p-3 border-b border-solid border-slate-100">Phone</th>
+              <th class="w-[16%] bg-fuchsia-950 text-white text-left p-3 border-b border-solid border-slate-100">Birth date</th>
+              <th class="w-[16%] bg-fuchsia-950 text-white text-cente p-3 border-b border-solid border-slate-100">Rights forfeited</th>
+            </tr>
+          </thead>
+          <tbody class="[&>tr:nth-child(even)]:bg-fuchsia-50 text-center"></tbody>
+        </table>
+      </div>
+    </main>
+
+  </body>
+
+</html>
