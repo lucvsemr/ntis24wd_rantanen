@@ -53,8 +53,8 @@ body {
 
 /* Left & right empty space 15% (content width ~70%) */
 .content {
-  margin-left: 15%;                      /* % */
-  margin-right: 15%;                     /* % */
+  margin-left: 16.666%;                      /* % */
+  margin-right: 16.666%;                     /* % */
   padding-top: 1rem;                     /* rem */
   padding-bottom: 2rem;                  /* rem */
 }
@@ -121,7 +121,7 @@ body {
 }
 .table thead th:nth-child(n+2),
 .table tbody td:nth-child(n+2) {
-  width: 15%;
+  width: 12%;
 }
 
 /* Center the day columns (Monâ€“Thu) */
